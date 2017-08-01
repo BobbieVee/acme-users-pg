@@ -1,5 +1,23 @@
 {% extends 'layout.html' %}
 
 {% block body%}
-<h1>Users</h1>
+<h2>Users</h2>
+	<ul class='list-group'>
+	{% for user in users %}
+		<li class=list-group-item>{{ user.name }}
+		{% if not user.manager %}
+			<form action='/users/{{user.id}}?_method=put' method='post'>
+				<label>
+					<button class='btn btn-primary'>Make Manager</button>
+				</label>
+			</form>
+			{% endif %}
+			<form action='/users/{{user.id}}?_method=delete' method='post'>
+				<label>
+					<button class='btn btn-danger'>Delete User</button>
+				</label>
+			</form>			
+		</li>
+	{% endfor %}	
+	</ul>
 {% endblock %}

@@ -8,9 +8,9 @@
 <div class='container'>
 	<h1>Acme Users PiGs</h1>
 	<ul class='nav nav-tabs'>
-		<li class='active'><a href="/">Home</a></li>
-		<li><a href="/users">Users</a></li>
-		<li><a href="/managers">Managers</a></li>
+		<li class={{homeTab}}><a href="/">Home </a></li>
+		<li class={{userTab}}><a href="/users">Users ({{users.length}})</a></li>
+		<li class={{managerTab}}><a href="/managers">Managers ({{managers.length}})</a></li>
 	</ul>	
 	{% block body%}
 	{% endblock%}

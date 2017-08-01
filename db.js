@@ -25,7 +25,6 @@ const sync = (cb) => {
 };
 
 const createUser = (user, cb) => {
-	console.log('user = ', user)
 	query('insert into users (name, manager) values ($1, $2)', [user.name, user.manager], (err, result) => {
 		if (err) return cb(err);
 		cb(null);
@@ -51,13 +50,12 @@ const seed = (cb) => {
   });
 };
 
-
-const getUsers = (managersOnly, cb) => {
-	let params = [];
-	if (managersOnly) params = [1];
-	query('select * from users where managers=$1', params, (err, result) => {
+const getUsers = (cb) => {
+	query('select * from users', null, (err, result) => {
 		if (err) return cb(err);
-		cb(null, result.rows);
+		const managers = result.rows.filter((row) => row.manager);
+		const users = result.rows.filter((row) => !row.manager);
+		cb(null, users, managers);
 	})
 };
 
@@ -68,10 +66,10 @@ const getUser = (id, cb) => {
 	})
 };
 
-const updateUser = (user, cb) => {
-	query('update users set manager = !manager', null, (err, result) => {
+const updateUser = (id, cb) => {
+	query('update users set manager = not manager where id=$1 returning * ', [id], (err, result) => {
 		if (err) return cb(err);
-		cb(null);
+		cb(null, result.rows[0]);
 	});
 };
 
