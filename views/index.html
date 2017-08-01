@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block body%}
+<div class='well'>
+	<div class='form-group'>
+		<form method='post' action='/users'>
+			<label >
+				<input type="text" name="name" placeholder="Name">
+			</label>
+			<br>
+			<label class="custom-control custom-checkbox" name='isManager'>
+				<span class="custom-control-description"> is Manager</span>
+				<input type="checkbox" class="custom-control-input" name="isManager">
+			</label>
+			<br>
+			<button class='btn btn-primary'>Save</button>
+		</form>
+	</div>	
+</div>
+{% endblock%}

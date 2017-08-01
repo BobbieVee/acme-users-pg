@@ -14,7 +14,7 @@ const sync = (cb) => {
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       name CHARACTER VARYING(255) UNIQUE,
-      manager INTEGER
+      manager BOOLEAN
     );
   `;
   query(sql, null, (err) => {
@@ -25,6 +25,7 @@ const sync = (cb) => {
 };
 
 const createUser = (user, cb) => {
+	console.log('user = ', user)
 	query('insert into users (name, manager) values ($1, $2)', [user.name, user.manager], (err, result) => {
 		if (err) return cb(err);
 		cb(null);
@@ -32,15 +33,15 @@ const createUser = (user, cb) => {
 };
 
 const seed = (cb) => {
-  createUser({ name: 'HarveyX ', manager: 1}, (err, id) => {
+  createUser({ name: 'HarveyX ', manager: true}, (err, id) => {
     if(err){
       return cb(err);
     }
-    createUser({ name: 'Wallbanger', manager: 0}, (err, id)  => {
+    createUser({ name: 'Wallbanger', manager: false}, (err, id)  => {
       if(err){
         return cb(err);
       }
-      createUser({ name: 'Snipes', manager: 0}, (err, id) => {
+      createUser({ name: 'Snipes', manager: false}, (err, id) => {
         if(err){
           return cb(err);
         }
