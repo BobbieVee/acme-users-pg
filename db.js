@@ -74,7 +74,7 @@ const updateUser = (id, cb) => {
 };
 
 const deleteUser = (id, cb) => {
-	query('delete from user where id=$1', [id], (err, result) => {
+	query('delete from users where id=$1', [id], (err, result) => {
 		if (err) return cb(err);
 		cb(null);
 	})
